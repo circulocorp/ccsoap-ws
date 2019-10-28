@@ -13,12 +13,12 @@ phases:
   build:
     commands:
       - echo Build version $VERSION started on `date`
-      - docker build -t ccsoap-ws:$VERSION .
-      - docker tag ccsoap-ws:$VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/ccsoap-ws:$VERSION
-      - docker tag ccsoap-ws:$VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/ccsoap-ws:latest
+      - docker build -t cc-telcelapi:$VERSION .
+      - docker tag cc-telcelapi:$VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/cc-telcelapi:$VERSION
+      - docker tag cc-telcelapi:$VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/cc-telcelapi:latest
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/ccsoap-ws:$VERSION
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/ccsoap-ws:latest
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/cc-telcelapi:$VERSION
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/cc-telcelapi:latest
