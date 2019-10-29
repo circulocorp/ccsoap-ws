@@ -1,4 +1,5 @@
-
+from classes.database import Database
+from PydoNovosoft.utils import Utils
 
 class Soap(object):
 
@@ -15,7 +16,8 @@ class Soap(object):
     def alta(self, params):
         code = self.validate(params)
         if code == 1:
-            db = DB(dbhost="", dbuser="", dbpass="")
+            db = Database(dbhost=Utils.get_secret("pghost"), dbuser=Utils.get_secret("soapdbuser"),
+                          dbpass=Utils.get_secret("soapdbpass"))
             rows = db.find_iccid(params["iccid"])
             if len(rows) > 0:
                 code = 600

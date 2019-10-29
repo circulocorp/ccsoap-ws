@@ -16,7 +16,7 @@ def extract_body(xml):
         data = dict()
         for ele in child.getchildren():
             data[ele.tag] = ele.text
-        code = validator(data)
+        code = soap.validate(data)
         if child.tag == "alta_aprov_telcel" and code == 200:
             code = alta(data)
     return code
