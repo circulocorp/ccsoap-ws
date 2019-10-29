@@ -2,20 +2,30 @@
 
 class Soap(object):
 
+    def validate(self, params):
+        if "msisdn" not in params or len(params["msisdn"]) < 12:
+            return 100
+        if "iccid" not in params or len(params["iccid"]) < 19:
+            return 200
+        if "msisdn" in params:
+            if not isinstance(params["msisdn"], int):
+                return 300
+        return 1
+
     def alta(self, params):
-        code = 0
-        if "MSISDN" not in params or len(params["MSISDN"]) < 12:
-            code = 100
-        if "ICCID" not in params or len(params["ICCID"]) < 19:
-            code = 200
-        if "ICCID" in params and "MSISDN" in params:
-            if not isinstance(params["ICCID"], int) and not isinstance(params["MSISDN"], int):
-                code = 300
+        code = self.validate(params)
+        if code == 1:
+            db = DB(dbhost="", dbuser="", dbpass="")
+            rows = db.find_iccid(params["iccid"])
+            if len(rows) > 0:
+                code = 600
+            else:
+                db.insert_telcel_trans(params)
         return code
 
     def suspension(self, params):
         code = 0
-        if "MSISDN" not in params or len(params["MSISDN"]) < 12:
+        if "msisdn" not in params or len(params["msisdn"]) < 12:
             code = 100
         if "MSISDN" in params:
             if not isinstance(params["MSISDN"], int):
