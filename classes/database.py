@@ -102,7 +102,9 @@ class Database(object):
                 self._connect()
             cursor = self._conn.cursor()
             cursor.execute(sql, (values["mssid"], values["iccid"], values["cveplan"], values["cvetpoinst"]))
-            return cursor.fetchone()[0]
+            id = cursor.fetchone()[0]
+            self._conn.commit()
+            return id
         except (Exception, pg.Error) as error:
             print(error)
             return 0
