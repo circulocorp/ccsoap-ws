@@ -101,12 +101,15 @@ class Database(object):
             if not self._conn:
                 self._connect()
             cursor = self._conn.cursor()
-            cursor.execute(sql, (values["mssid"], values["iccid"], values["cveplan"], values["cvetpoinst"]))
+            cursor.execute(sql, (values["mssid"], values["iccid"], values["cveplan"], values["cvetpoinst"], ))
+            print(sql)
             id = cursor.fetchone()[0]
             self._conn.commit()
+            cursor.close()
             return id
         except (Exception, pg.Error) as error:
             print(error)
+            self._conn.cursor()
             return 0
 
     def insert_telcel_hist(self, values):
@@ -119,11 +122,13 @@ class Database(object):
                 self._connect()
             cursor = self._conn.cursor()
             cursor.execute(sql, (values["telcel"], values["mssid"], values["iccid"], values["cveplan"],
-                                 values["cvetpoinst"], values["cveplannew"], values["estado"], values["created"]))
+                                 values["cvetpoinst"], values["cveplannew"], values["estado"], values["created"], ))
             self._conn.commit()
+            cursor.close()
             return 0
         except (Exception, pg.Error) as error:
             print(error)
+            self._conn.cursor()
             return 501
 
     def update_telcel_trans(self, values):
