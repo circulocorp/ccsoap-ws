@@ -6,6 +6,7 @@ class Database(object):
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
         self._conn = None
+        self._connect()
 
     def _connect(self):
         try:
@@ -14,6 +15,7 @@ class Database(object):
             self._conn = conn
         except (Exception, pg.Error) as error:
             print(error)
+            self._conn = None
 
     def select_telcel(self, id):
         sql = "select * from 'APRVD_TELCEL_TRANS' where 'APRV_C_TELCEL' = %s"
@@ -109,7 +111,6 @@ class Database(object):
             return id
         except (Exception, pg.Error) as error:
             print(error)
-            self._conn.cursor()
             return 0
 
     def insert_telcel_hist(self, values):
@@ -128,7 +129,6 @@ class Database(object):
             return 0
         except (Exception, pg.Error) as error:
             print(error)
-            self._conn.cursor()
             return 501
 
     def update_telcel_trans(self, values):
