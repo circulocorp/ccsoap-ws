@@ -16,9 +16,9 @@ def extract_body(xml):
         data = dict()
         for ele in child.getchildren():
             if "arg0" in ele.tag:
-                data["msisdn"] = ele.text
+                data["msisdn"] = int(ele.text)
             elif "arg1" in ele.tag:
-                data["iccid"] = ele.text
+                data["iccid"] = int(ele.text)
             elif "arg2" in ele.tag:
                 data["cveplan"] = ele.text
             elif "arg3" in ele.tag:

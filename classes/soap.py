@@ -5,6 +5,7 @@ from PydoNovosoft.utils import Utils
 class Soap(object):
 
     def validate(self, params):
+        print(params)
         if "msisdn" not in params or len(params["msisdn"]) < 12:
             return 100
         if "msisdn" in params:
