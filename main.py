@@ -24,7 +24,7 @@ def extract_body(xml):
             elif "arg3" in ele.tag:
                 data["cvetpoinst"] = ele.text
         if child.tag == "alta_aprov_telcel":
-            code = alta(data)
+            code = soap.alta(data)
     return code
 
 
