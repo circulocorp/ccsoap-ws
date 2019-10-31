@@ -23,8 +23,7 @@ def extract_body(xml):
                 data["cveplan"] = ele.text
             elif "arg3" in ele.tag:
                 data["cvetpoinst"] = ele.text
-        code = soap.validate(data)
-        if child.tag == "alta_aprov_telcel" and code == 1:
+        if child.tag == "alta_aprov_telcel":
             code = alta(data)
     return code
 
@@ -38,14 +37,10 @@ def parse_xml(obj):
     return xml
 
 
-def alta(data):
-    print(data)
-    return 200
-
-
 @app.route('/', methods=['POST'])
 def root():
     code = extract_body(parse_xml(request.data))
+    print(code)
     ret = "<?xml version='1.0' encoding='ISO-8859-1' ?><estatus>"+str(code)+"</estatus>"
     return ret
 

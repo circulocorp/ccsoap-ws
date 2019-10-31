@@ -13,13 +13,13 @@ class Soap(object):
                 int(params["msisdn"])
             except:
                 return 300
-        return 1
+        return 0
 
     def alta(self, params):
         code = self.validate(params)
-        if code == 1:
+        if code == 0:
             if "iccid" not in params or len(params["iccid"]) != 19:
-                code = 100
+                code = 200
             else:
                 db = Database(dbhost=Utils.get_secret("pg_host"), dbuser=Utils.get_secret("soapdbuser"),
                               dbpass=Utils.get_secret("soapdbpass"))
