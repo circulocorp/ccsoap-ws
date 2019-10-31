@@ -15,9 +15,16 @@ def extract_body(xml):
     for child in node[0].getchildren():
         data = dict()
         for ele in child.getchildren():
-            data[ele.tag] = ele.text
+            if "arg0" in ele.tag:
+                data["msisdn"] = ele.text
+            elif "arg1" in ele.tag:
+                data["iccid"] = ele.text
+            elif "arg2" in ele.tag:
+                data["cveplan"] = ele.text
+            elif "arg3" in ele.tag:
+                data["cvetpoinst"] = ele.text
         code = soap.validate(data)
-        if child.tag == "alta_aprov_telcel" and code == 200:
+        if child.tag == "alta_aprov_telcel" and code == 1:
             code = alta(data)
     return code
 
