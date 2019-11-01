@@ -2,3 +2,5 @@ Flask
 psycopg2-binary
 requests
 PydoNovosoft==1.2.0
+logging
+json-logging==0.0.10
