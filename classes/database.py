@@ -18,13 +18,13 @@ class Database(object):
             self._conn = None
 
     def select_telcel(self, id):
-        sql = "select * from APRVD_TELCEL_TRANS where APRV_C_TELCEL = %s"
+        sql = "select * from 'APRVD_TELCEL_TRANS' where 'APRV_C_TELCEL' = %s"
         recs = []
         if not self._conn:
             self._connect()
         try:
             cursor = self._conn.cursor()
-            cursor.execute(sql, (msisdn, ))
+            cursor.execute(sql, (id, ))
             data = cursor.fetchall()
             for row in data:
                 rec = {}
@@ -44,7 +44,7 @@ class Database(object):
             return recs
 
     def find_msisdn(self, msisdn):
-        sql = "select * from APRVD_TELCEL_TRANS where APRV_D_MSISDN = %s"
+        sql = "select * from 'APRVD_TELCEL_TRANS' where 'APRV_D_MSISDN' = %s"
         recs = []
         if not self._conn:
             self._connect()
@@ -70,7 +70,7 @@ class Database(object):
             return recs
 
     def find_iccid(self, iccid):
-        sql = "select * from APRVD_TELCEL_TRANS where APRV_D_ICCID = %s"
+        sql = "select * from 'APRVD_TELCEL_TRANS' where 'APRV_D_ICCID' = %s"
         recs = []
         if not self._conn:
             self._connect()
