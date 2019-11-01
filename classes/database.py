@@ -18,7 +18,7 @@ class Database(object):
             self._conn = None
 
     def select_telcel(self, id):
-        sql = "select * from 'APRVD_TELCEL_TRANS' where 'APRV_C_TELCEL' = %s"
+        sql = "select * from APRVD_TELCEL_TRANS where APRV_C_TELCEL = %s"
         recs = []
         if not self._conn:
             self._connect()
@@ -44,7 +44,7 @@ class Database(object):
             return recs
 
     def find_msisdn(self, msisdn):
-        sql = "select * from 'APRVD_TELCEL_TRANS' where 'APRV_D_MSISDN' = %s"
+        sql = "select * from APRVD_TELCEL_TRANS where APRV_D_MSISDN = %s"
         recs = []
         if not self._conn:
             self._connect()
@@ -70,13 +70,13 @@ class Database(object):
             return recs
 
     def find_iccid(self, iccid):
-        sql = "select * from 'APRVD_TELCEL_TRANS' where 'APRV_D_ICCID' = %s"
+        sql = "select * from APRVD_TELCEL_TRANS where APRV_D_ICCID = %s"
         recs = []
         if not self._conn:
             self._connect()
         try:
             cursor = self._conn.cursor()
-            cursor.execute(sql, (msisdn, ))
+            cursor.execute(sql, (iccid, ))
             data = cursor.fetchall()
             for row in data:
                 rec = {}
@@ -132,9 +132,9 @@ class Database(object):
             return 501
 
     def update_telcel_trans(self, values):
-        sql = "update 'APRVD_TELCEL_TRANS' set 'APRV_C_TELCEL'=%s,'APRV_D_KEY'=%s,'APRV_D_ICCID'=%s," \
-              "'APRV_D_CVEPLAN'=%s,'APRV_D_CVETPOINST'=%s,'APRV_D_CVEPLAN_NEW'=%s,'APRV_B_ESTADO'=%s " \
-              "where 'APRV_D_MSISDN'=%s"
+        sql = "update APRVD_TELCEL_TRANS set APRV_C_TELCEL=%s,APRV_D_KEY=%s,APRV_D_ICCID=%s," \
+              "APRV_D_CVEPLAN=%s,APRV_D_CVETPOINST=%s,APRV_D_CVEPLAN_NEW=%s,APRV_B_ESTADO=%s " \
+              "where APRV_D_MSISDN=%s"
         if not self._conn:
             self._connect()
         cursor = self._conn.cursor()
