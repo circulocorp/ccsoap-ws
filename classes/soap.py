@@ -28,7 +28,6 @@ class Soap(object):
                     code = 600
                 else:
                     id = db.insert_telcel_trans(params)
-                    print(id)
                     if id > 0:
                         rec = db.select_telcel(id)
                         code = db.insert_telcel_trans(rec)
