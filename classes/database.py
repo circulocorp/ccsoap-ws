@@ -97,9 +97,9 @@ class Database(object):
 
     def insert_telcel_trans(self, values):
         try:
-            sql = "insert into APRVD_TELCEL_TRANS(APRV_D_KEY,APRV_D_MSISDN,APRV_D_ICCID," \
-                  "APRV_D_CVEPLAN,APRV_D_CVETPOINST,DATE_CREATED,APRV_D_CVEPLAN_NEW,APRV_B_ESTADO) values(" \
-                  "'3c06b14346f35e59f63d7fce97340220d77b9ac2',%s,%s,%s,%s,NOW(),NULL,'ALTA') RETURNING APRV_C_TELCEL"
+            sql = 'insert into "APRVD_TELCEL_TRANS"("APRV_D_KEY","APRV_D_MSISDN","APRV_D_ICCID",' \
+                  '"APRV_D_CVEPLAN","APRV_D_CVETPOINST","DATE_CREATED","APRV_D_CVEPLAN_NEW","APRV_B_ESTADO") values('\
+                  '"3c06b14346f35e59f63d7fce97340220d77b9ac2",%s,%s,%s,%s,NOW(),NULL,"ALTA") RETURNING "APRV_C_TELCEL"'
             if not self._conn:
                 self._connect()
             cursor = self._conn.cursor()
@@ -115,10 +115,10 @@ class Database(object):
 
     def insert_telcel_hist(self, values):
         try:
-            sql = "insert into APRVH_TELCEL_HIST(APRV_C_TELCEL,APRV_D_KEY,APRV_D_MSISDN,APRV_D_ICCID," \
-                  "APRV_D_CVEPLAN,APRV_D_CVETPOINST,DATE_CREATED,APRV_D_CVEPLAN_NEW,APRV_B_ESTADO, " \
-                  "DATE_CREATED_INSERTADO) values(%s,'3c06b14346f35e59f63d7fce97340220d77b9ac2',%s,%s,%s,%s,NOW()," \
-                  "%s,%s, %s)"
+            sql = 'insert into "APRVH_TELCEL_HIST"("APRV_C_TELCEL","APRV_D_KEY","APRV_D_MSISDN","APRV_D_ICCID",' \
+                  '"APRV_D_CVEPLAN","APRV_D_CVETPOINST","DATE_CREATED","APRV_D_CVEPLAN_NEW","APRV_B_ESTADO", ' \
+                  '"DATE_CREATED_INSERTADO") values(%s,"3c06b14346f35e59f63d7fce97340220d77b9ac2",%s,%s,%s,%s,NOW(),' \
+                  '%s,%s, %s)'
             if not self._conn:
                 self._connect()
             cursor = self._conn.cursor()
