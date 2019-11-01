@@ -123,9 +123,9 @@ class Database(object):
             if not self._conn:
                 self._connect()
             cursor = self._conn.cursor()
-            cursor.execute(sql, (values["telcel"], "3c06b14346f35e59f63d7fce97340220d77b9ac2", values["msisdn"],
-                                 values["iccid"], values["cveplan"], values["cvetpoinst"], values["cveplannew"],
-                                 values["estado"], values["created"], ))
+            print(sql)
+            cursor.execute(sql, (values["telcel"], values["key"], values["msisdn"], values["iccid"], values["cveplan"],
+                                 values["cvetpoinst"], values["cveplannew"], values["estado"], values["created"], ))
             self._conn.commit()
             cursor.close()
             return 0
