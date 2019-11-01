@@ -24,13 +24,13 @@ class Database(object):
             self._connect()
         try:
             cursor = self._conn.cursor()
-            cursor.execute(sql, (mssid))
+            cursor.execute(sql, (msisdn, ))
             data = cursor.fetchall()
             for row in data:
                 rec = {}
                 rec["telcel"] = row[0]
                 rec["key"] = row[1]
-                rec["mssid"] = row[2]
+                rec["msisdn"] = row[2]
                 rec["iccid"] = row[3]
                 rec["cveplan"] = row[4]
                 rec["cvetpoinst"] = row[5]
@@ -43,20 +43,20 @@ class Database(object):
         finally:
             return recs
 
-    def find_mssid(self, mssid):
+    def find_msisdn(self, msisdn):
         sql = "select * from 'APRVD_TELCEL_TRANS' where 'APRV_D_MSISDN' = %s"
         recs = []
         if not self._conn:
             self._connect()
         try:
             cursor = self._conn.cursor()
-            cursor.execute(sql, (mssid))
+            cursor.execute(sql, (msisdn, ))
             data = cursor.fetchall()
             for row in data:
                 rec = {}
                 rec["telcel"] = row[0]
                 rec["key"] = row[1]
-                rec["mssid"] = row[2]
+                rec["msisdn"] = row[2]
                 rec["iccid"] = row[3]
                 rec["cveplan"] = row[4]
                 rec["cvetpoinst"] = row[5]
@@ -76,13 +76,13 @@ class Database(object):
             self._connect()
         try:
             cursor = self._conn.cursor()
-            cursor.execute(sql, (mssid))
+            cursor.execute(sql, (msisdn, ))
             data = cursor.fetchall()
             for row in data:
                 rec = {}
                 rec["telcel"] = row[0]
                 rec["key"] = row[1]
-                rec["mssid"] = row[2]
+                rec["msisdn"] = row[2]
                 rec["iccid"] = row[3]
                 rec["cveplan"] = row[4]
                 rec["cvetpoinst"] = row[5]
@@ -104,7 +104,7 @@ class Database(object):
                 self._connect()
             cursor = self._conn.cursor()
             print(sql)
-            cursor.execute(sql, (values["mssid"], values["iccid"], values["cveplan"], values["cvetpoinst"], ))
+            cursor.execute(sql, (values["msisdn"], values["iccid"], values["cveplan"], values["cvetpoinst"], ))
             id = cursor.fetchone()[0]
             self._conn.commit()
             cursor.close()
@@ -122,7 +122,7 @@ class Database(object):
             if not self._conn:
                 self._connect()
             cursor = self._conn.cursor()
-            cursor.execute(sql, (values["telcel"], values["mssid"], values["iccid"], values["cveplan"],
+            cursor.execute(sql, (values["telcel"], values["msisdn"], values["iccid"], values["cveplan"],
                                  values["cvetpoinst"], values["cveplannew"], values["estado"], values["created"], ))
             self._conn.commit()
             cursor.close()
@@ -139,5 +139,5 @@ class Database(object):
             self._connect()
         cursor = self._conn.cursor()
         cursor.execute(sql, (values["telcel"], values["key"], values["iccid"], values["cveplan"],
-                             values["cvetpoinst"], values["cveplannew"], values["estado"], values["mssid"]))
+                             values["cvetpoinst"], values["cveplannew"], values["estado"], values["msisdn"]))
         self._conn.commit()
