@@ -54,7 +54,7 @@ def parse_xml(obj):
 
 @app.route('/', methods=['POST'])
 def root():
-    logger.info("Request recieved", extra={'props': {"raw": request.data, "app": config["name"],
+    logger.info("Request recieved", extra={'props': {"raw": "something", "app": config["name"],
                                                      "label": config["name"]}})
     code = extract_body(parse_xml(request.data))
     ret = "<?xml version='1.0' encoding='ISO-8859-1' ?><estatus>"+str(code)+"</estatus>"

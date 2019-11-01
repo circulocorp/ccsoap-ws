@@ -103,8 +103,8 @@ class Database(object):
             if not self._conn:
                 self._connect()
             cursor = self._conn.cursor()
-            cursor.execute(sql, (values["mssid"], values["iccid"], values["cveplan"], values["cvetpoinst"], ))
             print(sql)
+            cursor.execute(sql, (values["mssid"], values["iccid"], values["cveplan"], values["cvetpoinst"], ))
             id = cursor.fetchone()[0]
             self._conn.commit()
             cursor.close()
