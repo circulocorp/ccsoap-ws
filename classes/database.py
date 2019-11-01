@@ -99,12 +99,13 @@ class Database(object):
         try:
             sql = 'insert into "APRVD_TELCEL_TRANS"("APRV_D_KEY","APRV_D_MSISDN","APRV_D_ICCID",' \
                   '"APRV_D_CVEPLAN","APRV_D_CVETPOINST","DATE_CREATED","APRV_D_CVEPLAN_NEW","APRV_B_ESTADO") values('\
-                  '"3c06b14346f35e59f63d7fce97340220d77b9ac2",%s,%s,%s,%s,NOW(),NULL,"ALTA") RETURNING "APRV_C_TELCEL"'
+                  '%s,%s,%s,%s,%s,NOW(),NULL,%s) RETURNING "APRV_C_TELCEL"'
             if not self._conn:
                 self._connect()
             cursor = self._conn.cursor()
             print(sql)
-            cursor.execute(sql, (values["msisdn"], values["iccid"], values["cveplan"], values["cvetpoinst"], ))
+            cursor.execute(sql, ("3c06b14346f35e59f63d7fce97340220d77b9ac2",values["msisdn"], values["iccid"],
+                                 values["cveplan"], values["cvetpoinst"], "ALTA", ))
             id = cursor.fetchone()[0]
             self._conn.commit()
             cursor.close()
@@ -117,13 +118,13 @@ class Database(object):
         try:
             sql = 'insert into "APRVH_TELCEL_HIST"("APRV_C_TELCEL","APRV_D_KEY","APRV_D_MSISDN","APRV_D_ICCID",' \
                   '"APRV_D_CVEPLAN","APRV_D_CVETPOINST","DATE_CREATED","APRV_D_CVEPLAN_NEW","APRV_B_ESTADO", ' \
-                  '"DATE_CREATED_INSERTADO") values(%s,"3c06b14346f35e59f63d7fce97340220d77b9ac2",%s,%s,%s,%s,NOW(),' \
-                  '%s,%s, %s)'
+                  '"DATE_CREATED_INSERTADO") values(%s,%s,%s,%s,%s,%s,NOW(),%s,%s, %s)'
             if not self._conn:
                 self._connect()
             cursor = self._conn.cursor()
-            cursor.execute(sql, (values["telcel"], values["msisdn"], values["iccid"], values["cveplan"],
-                                 values["cvetpoinst"], values["cveplannew"], values["estado"], values["created"], ))
+            cursor.execute(sql, (values["telcel"], "3c06b14346f35e59f63d7fce97340220d77b9ac2", values["msisdn"],
+                                 values["iccid"], values["cveplan"], values["cvetpoinst"], values["cveplannew"],
+                                 values["estado"], values["created"], ))
             self._conn.commit()
             cursor.close()
             return 0
