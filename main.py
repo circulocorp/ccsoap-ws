@@ -4,6 +4,7 @@ from PydoNovosoft.utils import Utils
 from xml.etree import ElementTree
 import json_logging
 import logging
+import sys
 
 json_logging.ENABLE_JSON_LOGGING = True
 json_logging.init()
