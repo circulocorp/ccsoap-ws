@@ -119,8 +119,7 @@ class Database(object):
             sql = 'insert into "APRVH_TELCEL_HIST"("APRV_C_TELCEL","APRV_D_KEY","APRV_D_MSISDN","APRV_D_ICCID",' \
                   '"APRV_D_CVEPLAN","APRV_D_CVETPOINST","DATE_CREATED","APRV_D_CVEPLAN_NEW","APRV_B_ESTADO", ' \
                   '"DATE_CREATED_INSERTADO") values(%s,%s,%s,%s,%s,%s,NOW(),%s,%s, %s)'
-            print(sql)
-            print(values)
+
             if not self._conn:
                 self._connect()
             cursor = self._conn.cursor()

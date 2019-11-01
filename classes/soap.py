@@ -30,7 +30,7 @@ class Soap(object):
                     id = db.insert_telcel_trans(params)
                     if id > 0:
                         rec = db.select_telcel(id)
-                        code = db.insert_telcel_trans(rec)
+                        code = db.insert_telcel_hist(rec)
                     else:
                         code = 501
         return code
