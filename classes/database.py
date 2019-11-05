@@ -134,12 +134,18 @@ class Database(object):
             return 501
 
     def update_telcel_trans(self, values):
-        sql = "update APRVD_TELCEL_TRANS set APRV_C_TELCEL=%s,APRV_D_KEY=%s,APRV_D_ICCID=%s," \
-              "APRV_D_CVEPLAN=%s,APRV_D_CVETPOINST=%s,APRV_D_CVEPLAN_NEW=%s,APRV_B_ESTADO=%s " \
-              "where APRV_D_MSISDN=%s"
-        if not self._conn:
-            self._connect()
-        cursor = self._conn.cursor()
-        cursor.execute(sql, (values["telcel"], values["key"], values["iccid"], values["cveplan"],
-                             values["cvetpoinst"], values["cveplannew"], values["estado"], values["msisdn"]))
-        self._conn.commit()
+        try:
+            sql = 'update "APRVD_TELCEL_TRANS" set "APRV_C_TELCEL"=%s,"APRV_D_KEY"=%s,"APRV_D_ICCID"=%s,' \
+                  '"APRV_D_CVEPLAN=%s,"APRV_D_CVETPOINST"=%s,"APRV_D_CVEPLAN_NEW"=%s,"APRV_B_ESTADO"=%s ' \
+                  'where "APRV_D_MSISDN"=%s'
+            if not self._conn:
+                self._connect()
+            cursor = self._conn.cursor()
+            cursor.execute(sql, (values["telcel"], values["key"], values["iccid"], values["cveplan"],
+                                 values["cvetpoinst"], values["cveplannew"], values["estado"], values["msisdn"]))
+            self._conn.commit()
+            cursor.close()
+            return 0
+        except (Exception, pg.Error) as error:
+            print(error)
+            return 501

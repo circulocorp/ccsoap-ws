@@ -40,6 +40,15 @@ def extract_body(xml):
                                                          "data": data}})
         if child.tag == "alta_aprov_telcel":
             code = soap.alta(data)
+        elif child.tag == "suspender_aprov_telcel":
+            code = soap.suspension(data)
+        elif child.tag == "reactivar_aprov_telcel":
+            code = soap.reactivacion(data)
+        elif child.tag == "cancelar_aprov_telcel":
+            code = soap.cancelacion(data)
+        elif child.tag == "modificar_aprov_telcel":
+            data["cveplan"] = data["iccid"]
+            code = soap.update_plan(data)
     return code
 
 

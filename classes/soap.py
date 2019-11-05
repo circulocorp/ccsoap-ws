@@ -5,7 +5,6 @@ from PydoNovosoft.utils import Utils
 class Soap(object):
 
     def validate(self, params):
-        print(params)
         if "msisdn" not in params or len(params["msisdn"]) != 12:
             return 100
         if "msisdn" in params:
@@ -36,38 +35,74 @@ class Soap(object):
         return code
 
     def suspension(self, params):
-        code = 0
-        if "msisdn" not in params or len(params["msisdn"]) < 12:
-            code = 100
-        if "msisdn" in params:
-            if not isinstance(params["MSISDN"], int):
-                code = 300
+        code = self.validate(params)
+        if code == 0:
+            db = Database(dbhost=Utils.get_secret("pg_host"), dbuser=Utils.get_secret("soapdbuser"),
+                          dbpass=Utils.get_secret("soapdbpass"))
+            rows = db.find_msisdn(params["msisdn"])
+            if len(rows) < 1:
+                code = 502
+            else:
+                values = rows[0]
+                if values["estado"] != "ALTA":
+                    code = 502
+                else:
+                    values["estado"] = "SUSPENSION"
+                    code = db.update_telcel_trans(values)
+                    db.insert_telcel_hist(values)
         return code
 
     def reactivacion(self, params):
-        code = 0
-        if "MSISDN" not in params or len(params["MSISDN"]) < 12:
-            code = 100
-        if "MSISDN" in params:
-            if not isinstance(params["MSISDN"], int):
-                code = 300
+        code = self.validate(params)
+        if code == 0:
+            db = Database(dbhost=Utils.get_secret("pg_host"), dbuser=Utils.get_secret("soapdbuser"),
+                          dbpass=Utils.get_secret("soapdbpass"))
+            rows = db.find_msisdn(params["msisdn"])
+            if len(rows) < 1:
+                code = 503
+            else:
+                values = rows[0]
+                if values["estado"] != "SUSPENSION":
+                    code = 503
+                else:
+                    values["estado"] = "ALTA"
+                    code = db.update_telcel_trans(values)
+                    db.insert_telcel_hist(values)
         return code
 
     def cancelacion(self, params):
-        code = 0
-        if "MSISDN" not in params or len(params["MSISDN"]) < 12:
-            code = 100
-        if "MSISDN" in params:
-            if not isinstance(params["MSISDN"], int):
-                code = 300
+        code = self.validate(params)
+        if code == 0:
+            db = Database(dbhost=Utils.get_secret("pg_host"), dbuser=Utils.get_secret("soapdbuser"),
+                          dbpass=Utils.get_secret("soapdbpass"))
+            rows = db.find_msisdn(params["msisdn"])
+            if len(rows) < 1:
+                code = 503
+            else:
+                values = rows[0]
+                if values["estado"] != "ALTA":
+                    code = 503
+                else:
+                    values["estado"] = "CANCELAR"
+                    code = db.update_telcel_trans(values)
+                    db.insert_telcel_hist(values)
         return code
 
     def update_plan(self, params):
-        code = 0
-        if "MSISDN" not in params or len(params["MSISDN"]) < 12:
-            code = 100
-        if "MSISDN" in params:
-            if not isinstance(params["MSISDN"], int):
-                code = 300
+        code = self.validate(params)
+        if code == 0:
+            db = Database(dbhost=Utils.get_secret("pg_host"), dbuser=Utils.get_secret("soapdbuser"),
+                          dbpass=Utils.get_secret("soapdbpass"))
+            rows = db.find_msisdn(params["msisdn"])
+            if len(rows) < 1:
+                code = 700
+            else:
+                values = rows[0]
+                if values["estado"] != "ALTA":
+                    code = 700
+                else:
+                    values["cveplannew"] = params["cveplannew"]
+                    code = db.update_telcel_trans(values)
+                    db.insert_telcel_hist(values)
         return code
 
