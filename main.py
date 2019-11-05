@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, Response
 from classes.soap import Soap
 from PydoNovosoft.utils import Utils
 from xml.etree import ElementTree
@@ -38,15 +38,15 @@ def extract_body(xml):
                 data["cvetpoinst"] = ele.text
         logger.info("New transaction", extra={'props': {"method": child.tag, "app": config["name"],
                                                          "data": data}})
-        if child.tag == "alta_aprov_telcel":
+        if "alta_aprov_telcel" in child.tag:
             code = soap.alta(data)
-        elif child.tag == "suspender_aprov_telcel":
+        elif "suspender_aprov_telcel" in child.tag:
             code = soap.suspension(data)
-        elif child.tag == "reactivar_aprov_telcel":
+        elif "reactivar_aprov_telcel" in child.tag:
             code = soap.reactivacion(data)
-        elif child.tag == "cancelar_aprov_telcel":
+        elif "cancelar_aprov_telcel" in child.tag:
             code = soap.cancelacion(data)
-        elif child.tag == "modificar_aprov_telcel":
+        elif "modificar_aprov_telcel" in child.tag:
             data["cveplan"] = data["iccid"]
             code = soap.update_plan(data)
     return code
@@ -69,7 +69,7 @@ def root():
     ret = "<?xml version='1.0' encoding='ISO-8859-1' ?><estatus>"+str(code)+"</estatus>"
     logger.info("Response from the service", extra={'props': {"raw": ret, "app": config["name"],
                                                               "label": config["name"], "code": code}})
-    return ret
+    return Response(ret, mimetype='text/xml')
 
 
 app.run(host='0.0.0.0', port=5000)
