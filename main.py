@@ -69,7 +69,7 @@ def root():
     ret = "<?xml version='1.0' encoding='ISO-8859-1' ?><estatus>"+str(code)+"</estatus>"
     logger.info("Response from the service", extra={'props': {"raw": ret, "app": config["name"],
                                                               "label": config["name"], "code": code}})
-    return Response(ret, mimetype='text/xml')
+    return Response(ret, mimetype='text/xml', )
 
 
 app.run(host='0.0.0.0', port=5000)
