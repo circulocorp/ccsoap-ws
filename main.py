@@ -18,7 +18,7 @@ config = Utils.read_config("package.json")
 app = Flask(__name__)
 
 
-def extract_body(xml):
+def extract_body(xml, method):
     soap = Soap()
     namespaces = {
         'soap': 'http://www.w3.org/2003/05/soap-envelope'
@@ -38,19 +38,21 @@ def extract_body(xml):
                 data["cvetpoinst"] = ele.text
         logger.info("New transaction", extra={'props': {"method": child.tag, "app": config["name"],
                                                          "data": data}})
-        if "alta_aprov_telcel" in child.tag:
-            code = soap.alta(data)
-        elif "suspender_aprov_telcel" in child.tag:
-            code = soap.suspension(data)
-        elif "reactivar_aprov_telcel" in child.tag:
-            code = soap.reactivacion(data)
-        elif "cancelar_aprov_telcel" in child.tag:
-            code = soap.cancelacion(data)
-        elif "modificar_aprov_telcel" in child.tag:
-            data["cveplan"] = data["iccid"]
-            code = soap.update_plan(data)
-        elif "com6_aprov_telcel" in child.tag:
-            code = soap.com_6(data["msisdn"])
+        if method == "POST":
+            if "alta_aprov_telcel" in child.tag:
+                code = soap.alta(data)
+            elif "suspender_aprov_telcel" in child.tag:
+                code = soap.suspension(data)
+            elif "reactivar_aprov_telcel" in child.tag:
+                code = soap.reactivacion(data)
+            elif "cancelar_aprov_telcel" in child.tag:
+                code = soap.cancelacion(data)
+            elif "modificar_aprov_telcel" in child.tag:
+                data["cveplan"] = data["iccid"]
+                code = soap.update_plan(data)
+        else:
+            if "com6_aprov_telcel" in child.tag:
+                code = soap.com_6(data["msisdn"])
     return code
 
 
@@ -63,11 +65,11 @@ def parse_xml(obj):
     return xml
 
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['POST', 'GET'])
 def root():
     logger.info("Request recieved", extra={'props': {"raw": "something", "app": config["name"],
                                                      "label": config["name"]}})
-    code = extract_body(parse_xml(request.data))
+    code = extract_body(parse_xml(request.data), request.method)
     ret = "<?xml version='1.0' encoding='ISO-8859-1' ?><estatus>"+str(code)+"</estatus>"
     logger.info("Response from the service", extra={'props': {"raw": ret, "app": config["name"],
                                                               "label": config["name"], "code": code}})
