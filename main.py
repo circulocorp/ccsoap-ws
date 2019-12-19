@@ -49,6 +49,8 @@ def extract_body(xml):
         elif "modificar_aprov_telcel" in child.tag:
             data["cveplan"] = data["iccid"]
             code = soap.update_plan(data)
+        elif "com6_aprov_telcel" in child.tag:
+            code = soap.com_6(data["msisdn"])
     return code
 
 
