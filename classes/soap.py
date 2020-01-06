@@ -117,7 +117,7 @@ class Soap(object):
                           dbpass=Utils.get_secret("soapdbpass"))
             rows = db.find_msisdn(params["msisdn"])
             if len(rows) < 1:
-                code = 405
+                code = 406
             else:
                 value = rows[0]
                 code = value["msisdn"]+"|"+value["iccid"]+"|"+value["cveplan"]+"|"+value["cvetpoinst"]+"|"+value["estado"]
