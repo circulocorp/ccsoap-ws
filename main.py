@@ -72,7 +72,10 @@ def root():
     logger.info("Request recieved", extra={'props': {"raw": "something", "app": config["name"],
                                                      "label": config["name"]}})
     code = extract_body(parse_xml(request.data), request.method)
-    ret = "<?xml version='1.0' encoding='ISO-8859-1' ?><estatus>"+str(code)+"</estatus>"
+    ret = "<?xml version='1.0' encoding='UTF-8' ?><soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/" \
+          "envelope/' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:xsi='http://www.w3.org/2001/" \
+          "XMLSchema-instance'><soapenv:Body><estatus xmlns='http://ctionlogic.mx.com.sap/'>"+str(code)+"</estatus>" \
+          "</soapenv:Body></soapenv:Envelope>"
     logger.info("Response from the service", extra={'props': {"raw": ret, "app": config["name"],
                                                               "label": config["name"], "code": code}})
     return Response(ret, mimetype='text/xml', )
