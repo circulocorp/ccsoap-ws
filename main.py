@@ -1,4 +1,5 @@
 from flask import Flask, request, Response
+from flask import send_file
 from classes.soap import Soap
 from PydoNovosoft.utils import Utils
 from xml.etree import ElementTree
@@ -67,18 +68,24 @@ def parse_xml(obj):
     return xml
 
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/', methods=['POST'])
 def root():
     logger.info("Request recieved", extra={'props': {"raw": "something", "app": config["name"],
                                                      "label": config["name"]}})
     code = extract_body(parse_xml(request.data), request.method)
     ret = "<?xml version='1.0' encoding='UTF-8' ?><soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/" \
           "envelope/' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:xsi='http://www.w3.org/2001/" \
-          "XMLSchema-instance'><soapenv:Body><estatus xmlns='http://ctionlogic.mx.com.sap/'>"+str(code)+"</estatus>" \
+          "XMLSchema-instance'><soapenv:Body><estatus xmlns='http://actionlogic.mx.com.sap/'>"+str(code)+"</estatus>" \
           "</soapenv:Body></soapenv:Envelope>"
     logger.info("Response from the service", extra={'props': {"raw": ret, "app": config["name"],
                                                               "label": config["name"], "code": code}})
     return Response(ret, mimetype='text/xml', )
+
+
+@app.route('/', methods=['GET'])
+def wsdl():
+    path = "./definition.wsdl"
+    return send_file(path, as_attachment=True)
 
 
 app.run(host='0.0.0.0', port=5000)
