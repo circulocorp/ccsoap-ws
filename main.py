@@ -24,7 +24,7 @@ def extract_body(xml, method):
     namespaces = {
         'soapenv': 'http://www.w3.org/2003/05/soap-envelope'
     }
-    node = xml.findall("./soap:Body", namespaces)
+    node = xml.findall("./soapenv:Body", namespaces)
     code = 0
     for child in node[0].getchildren():
         data = dict()
@@ -70,9 +70,14 @@ def parse_xml(obj):
 
 @app.route('/', methods=['POST'])
 def root():
-    logger.info("Request recieved", extra={'props': {"raw": "something", "app": config["name"],
-                                                     "label": config["name"]}})
-    code = extract_body(parse_xml(request.data), request.method)
+    code = 0
+    try:
+        logger.info("Request recieved", extra={'props': {"raw": "something", "app": config["name"],
+                                                         "label": config["name"]}})
+        code = extract_body(parse_xml(request.data), request.method)
+    except e:
+        logger.error("Exception", extra={'props': {"raw": e, "app": config["name"], "label": config["name"]}})
+
     ret = "<?xml version='1.0' encoding='UTF-8' ?><soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/" \
           "envelope/' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:xsi='http://www.w3.org/2001/" \
           "XMLSchema-instance'><soapenv:Body><estatus xmlns='http://actionlogic.mx.com.sap/'>"+str(code)+"</estatus>" \
