@@ -82,10 +82,9 @@ def root():
         print(error)
         logger.error("Exception", extra={'props': {"raw": "Some error", "app": config["name"], "label": config["name"]}})
 
-    ret = "<?xml version='1.0' encoding='UTF-8' ?><soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/" \
-          "envelope/' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:xsi='http://www.w3.org/2001/" \
-          "XMLSchema-instance'><soapenv:Body><estatus xmlns='http://actionlogic.mx.com.sap/'>"+str(code)+"</estatus>" \
-          "</soapenv:Body></soapenv:Envelope>"
+    ret = "<?xml version='1.0' encoding='UTF-8' ?><soapenv:Envelope xmlns:soapenv='http://www.w3.org/2003/05/soap-envelope' " \
+          "xmlns:xsd='http://www.w3.org/2001/XMLSchema'><soapenv:Body><estatus xmlns='http://actionlogic.mx.com.sap/'>"\
+          +str(code)+"</estatus></soapenv:Body></soapenv:Envelope>"
     logger.info("Response from the service", extra={'props': {"raw": ret, "app": config["name"],
                                                               "label": config["name"], "code": code}})
     return Response(ret, mimetype='text/xml', )

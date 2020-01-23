@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ccsoap-ws.iml" filepath="$PROJECT_DIR$/.idea/ccsoap-ws.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mznotifier/.idea/mznotifier.iml" filepath="$PROJECT_DIR$/../mznotifier/.idea/mznotifier.iml" />
     </modules>
   </component>
 </project>
