@@ -66,7 +66,8 @@ def parse_xml(obj):
     try:
         xml = ElementTree.fromstring(obj)
     except:
-        print("Error")
+        print(obj)
+        logger.error("Exception", extra={'props': {"raw": "Parse error", "app": config["name"], "label": config["name"]}})
     return xml
 
 
