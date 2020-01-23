@@ -21,12 +21,13 @@ app = Flask(__name__)
 
 def extract_body(xml, method):
     soap = Soap()
+    logger.info("New transaction", extra={'props': {"raw": xml, "app": config["name"]}})
     namespaces = {
         'soapenv': 'http://www.w3.org/2003/05/soap-envelope'
     }
     node = xml.findall("./soapenv:Body", namespaces)
     code = 0
-    logger.info("New transaction", extra={'props': {"method": node, "app": config["name"]}})
+    logger.info("New transaction", extra={'props': {"raw": node, "app": config["name"]}})
     for child in node[0].getchildren():
         data = dict()
         for ele in child.getchildren():
@@ -77,7 +78,8 @@ def root():
                                                          "label": config["name"]}})
         code = extract_body(parse_xml(request.data), request.method)
     except Exception as error:
-        logger.error("Exception", extra={'props': {"raw": error, "app": config["name"], "label": config["name"]}})
+        print(error)
+        logger.error("Exception", extra={'props': {"raw": "Some error", "app": config["name"], "label": config["name"]}})
 
     ret = "<?xml version='1.0' encoding='UTF-8' ?><soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/" \
           "envelope/' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:xsi='http://www.w3.org/2001/" \
