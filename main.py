@@ -24,9 +24,9 @@ def extract_body(xml, method):
     namespaces = {
         'soapenv': 'http://www.w3.org/2003/05/soap-envelope'
     }
-    node = xml.findall(":Body", namespaces)
+    node = xml.findall("./soapenv:Body", namespaces)
     code = 0
-    print(node)
+    logger.info("New transaction", extra={'props': {"method": node, "app": config["name"]}})
     for child in node[0].getchildren():
         data = dict()
         for ele in child.getchildren():
@@ -76,8 +76,8 @@ def root():
         logger.info("Request recieved", extra={'props': {"raw": "something", "app": config["name"],
                                                          "label": config["name"]}})
         code = extract_body(parse_xml(request.data), request.method)
-    except:
-        logger.error("Exception", extra={'props': {"raw": "Some error", "app": config["name"], "label": config["name"]}})
+    except Exception as error:
+        logger.error("Exception", extra={'props': {"raw": error, "app": config["name"], "label": config["name"]}})
 
     ret = "<?xml version='1.0' encoding='UTF-8' ?><soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/" \
           "envelope/' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:xsi='http://www.w3.org/2001/" \
