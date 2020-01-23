@@ -22,20 +22,20 @@ app = Flask(__name__)
 def extract_body(xml, method):
     soap = Soap()
     namespaces = {
-        'soap': 'http://www.w3.org/2003/05/soap-envelope'
+        'soapenv': 'http://www.w3.org/2003/05/soap-envelope'
     }
     node = xml.findall("./soap:Body", namespaces)
     code = 0
     for child in node[0].getchildren():
         data = dict()
         for ele in child.getchildren():
-            if "arg0" in ele.tag:
+            if "arg0" in ele.tag or "in0" in ele.tag:
                 data["msisdn"] = ele.text
-            elif "arg1" in ele.tag:
+            elif "arg1" in ele.tag or "in1" in ele.tag:
                 data["iccid"] = ele.text
-            elif "arg2" in ele.tag:
+            elif "arg2" in ele.tag or "in2" in ele.tag:
                 data["cveplan"] = ele.text
-            elif "arg3" in ele.tag:
+            elif "arg3" in ele.tag or "in3" in ele.tag:
                 data["cvetpoinst"] = ele.text
         logger.info("New transaction", extra={'props': {"method": child.tag, "app": config["name"],
                                                          "data": data}})
