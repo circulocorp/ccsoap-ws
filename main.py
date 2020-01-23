@@ -24,8 +24,9 @@ def extract_body(xml, method):
     namespaces = {
         'soapenv': 'http://www.w3.org/2003/05/soap-envelope'
     }
-    node = xml.findall("./soapenv:Body", namespaces)
+    node = xml.findall(":Body", namespaces)
     code = 0
+    print(node)
     for child in node[0].getchildren():
         data = dict()
         for ele in child.getchildren():
