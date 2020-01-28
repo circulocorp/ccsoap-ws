@@ -73,8 +73,7 @@ def root():
     code = 0
     logger.info("Request recieved", extra={'props': {"raw": "something", "app": config["name"],"label": config["name"]}})
     code = extract_body(parse_xml(request.data), request.method)
-    logger.error("Exception", extra={'props': {"raw": "Some error", "app": config["name"], "label": config["name"]}})
-
+    logger.info("Exception", extra={'props': {"raw": code, "app": config["name"], "label": config["name"]}})
     ret = "<?xml version='1.0' encoding='UTF-8' ?><soapenv:Envelope xmlns:soapenv='http://www.w3.org/2003/05/soap-envelope' " \
           "xmlns:xsd='http://www.w3.org/2001/XMLSchema'><soapenv:Body><estatus xmlns='http://actionlogic.mx.com.sap/'>"\
           +str(code)+"</estatus></soapenv:Body></soapenv:Envelope>"

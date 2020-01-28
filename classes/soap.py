@@ -1,16 +1,29 @@
 from classes.database import Database
 from PydoNovosoft.utils import Utils
+import json_logging
+import logging
+import sys
+
+json_logging.ENABLE_JSON_LOGGING = True
+json_logging.init()
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+logger.addHandler(logging.StreamHandler(sys.stdout))
+config = Utils.read_config("package.json")
 
 
 class Soap(object):
 
     def validate(self, params):
         if "msisdn" not in params or len(params["msisdn"]) != 12:
+            logger.info("MSSID is not equals to 12", extra={'props': {"raw": params, "app": config["name"], "label": config["name"]}})
             return 100
         if "msisdn" in params:
             try:
                 int(params["msisdn"])
             except:
+                logger.error("MSSID is not numeric", extra={'props': {"raw": params, "app": config["name"], "label": config["name"]}})
                 return 300
         return 0
 
@@ -111,12 +124,13 @@ class Soap(object):
         return code
 
     def com_6(self, params):
+        logger.info("Request COM_6 processing", extra={'props': {"raw": params, "app": config["name"], "label": config["name"]}})
         code = self.validate(params)
         if code == 0:
             db = Database(dbhost=Utils.get_secret("pg_host"), dbuser=Utils.get_secret("soapdbuser"),
                           dbpass=Utils.get_secret("soapdbpass"))
             rows = db.find_msisdn(params["msisdn"])
-            print(rows)
+            logger.info("Finding rows:"+str(len(rows)), extra={'props': {"raw": params, "app": config["name"], "label": config["name"]}})
             if len(rows) < 1:
                 code = 406
             else:
