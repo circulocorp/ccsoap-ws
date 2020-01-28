@@ -93,8 +93,8 @@ def wsdl():
     logger.info("Download definition", extra={'props': {"app": config["name"], "label": config["name"]}})
     try:
         logger.info("Download definition", extra={'props': {"raw": request.args["xsd"], "app": config["name"], "label": config["name"]}})
-        arg = request.args['xsd']
-        if arg == 1:
+        arg = request.args["xsd"]
+        if arg:
             path = "./definition.xsd"
     except Exception as error:
         logger.error("Error downloading definition", extra={'props': {"raw": str(error), "app": config["name"], "label": config["name"]}})
