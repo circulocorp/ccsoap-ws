@@ -21,13 +21,11 @@ app = Flask(__name__)
 
 def extract_body(xml, method):
     soap = Soap()
-    logger.info("New transaction", extra={'props': {"raw": xml, "app": config["name"]}})
     namespaces = {
         'soapenv': 'http://www.w3.org/2003/05/soap-envelope'
     }
     node = xml.findall("./soapenv:Body", namespaces)
     code = 0
-    logger.info("New transaction", extra={'props': {"raw": node, "app": config["name"]}})
     for child in node[0].getchildren():
         data = dict()
         for ele in child.getchildren():
@@ -39,8 +37,7 @@ def extract_body(xml, method):
                 data["cveplan"] = ele.text
             elif "arg3" in ele.tag or "in3" in ele.tag:
                 data["cvetpoinst"] = ele.text
-        logger.info("New transaction", extra={'props': {"method": child.tag, "app": config["name"],
-                                                         "data": data}})
+        logger.info("New transaction", extra={'props': {"method": method, "app": config["name"],"data": data}})
         if method == "POST":
             if "alta_aprov_telcel" in child.tag:
                 code = soap.alta(data)
@@ -93,6 +90,11 @@ def root():
 @app.route('/', methods=['GET'])
 def wsdl():
     path = "./definition.wsdl"
+    try:
+        arg = request.args.get('xsd')
+        path = "./definition.xsd"
+    except Exception as error:
+        print(error)
     return send_file(path, as_attachment=True)
 
 

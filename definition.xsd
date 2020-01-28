@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <schema elementFormDefault="qualified" targetNamespace="http://actionlogic.mx.com.sap" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="alta_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+      <element name="in1" type="xsd:string"/>
+      <element name="in2" type="xsd:string"/>
+      <element name="in3" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="alta_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="alta_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="suspender_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="suspender_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="suspender_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="reactivar_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="reactivar_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="reactivar_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="cancelar_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="cancelar_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="cancelar_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="modificar_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+      <element name="in1" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="modificar_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="modificar_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com6_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com6_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="com6_aprov_telcelReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com7_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com7_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="com7_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com8_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com8_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="com8_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com9_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com9_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="com9_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com10_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com10_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="com10_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com11_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com11_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="com11_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com12_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com12_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="com12_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com13_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com13_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="com13_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com14_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com14_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="com14_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com15_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com15_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="com15_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com16_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com16_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="com16_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com17_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com17_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="com17_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com18_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com18_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="com18_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com19_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com19_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="com19_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com20_aprov_telcel">
+    <complexType>
+     <sequence>
+      <element name="in0" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="com20_aprov_telcelResponse">
+    <complexType>
+     <sequence>
+      <element name="com20_aprov_telcelReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="inicio">
+    <complexType/>
+   </element>
+   <element name="inicioResponse">
+    <complexType/>
+   </element>
+   <element name="existeConexion">
+    <complexType/>
+   </element>
+   <element name="existeConexionResponse">
+    <complexType>
+     <sequence>
+      <element name="existeConexionReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
