@@ -91,7 +91,8 @@ def root():
 def wsdl():
     path = "./definition.wsdl"
     try:
-        arg = request.args.get('xsd')
+        arg = request.args['xsd']
+        print(arg)
         if arg == 1:
             path = "./definition.xsd"
     except Exception as error:
