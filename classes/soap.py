@@ -116,6 +116,7 @@ class Soap(object):
             db = Database(dbhost=Utils.get_secret("pg_host"), dbuser=Utils.get_secret("soapdbuser"),
                           dbpass=Utils.get_secret("soapdbpass"))
             rows = db.find_msisdn(params["msisdn"])
+            print(rows)
             if len(rows) < 1:
                 code = 406
             else:
