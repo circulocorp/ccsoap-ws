@@ -92,7 +92,8 @@ def wsdl():
     path = "./definition.wsdl"
     try:
         arg = request.args.get('xsd')
-        path = "./definition.xsd"
+        if arg == 1:
+            path = "./definition.xsd"
     except Exception as error:
         print(error)
     return send_file(path, as_attachment=True)
