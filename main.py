@@ -37,7 +37,7 @@ def extract_body(xml, method):
                 data["cveplan"] = ele.text
             elif "arg3" in ele.tag or "in3" in ele.tag:
                 data["cvetpoinst"] = ele.text
-        logger.info("New transaction", extra={'props': {"method": method, "app": config["name"],"data": data}})
+        logger.info("New transaction", extra={'props': {"method": child.tag, "app": config["name"], "data": data}})
         if method == "POST":
             if "alta_aprov_telcel" in child.tag:
                 code = soap.alta(data)
