@@ -92,12 +92,12 @@ def wsdl():
     path = "./definition.wsdl"
     logger.info("Download definition", extra={'props': {"app": config["name"], "label": config["name"]}})
     try:
-        logger.info("Download definition", extra={'props': {"raw": request, "app": config["name"], "label": config["name"]}})
+        logger.info("Download definition", extra={'props': {"raw": request.args["xsd"], "app": config["name"], "label": config["name"]}})
         arg = request.args['xsd']
         if arg == 1:
             path = "./definition.xsd"
     except Exception as error:
-        print(error)
+        logger.error("Error downloading definition", extra={'props': {"raw": str(error), "app": config["name"], "label": config["name"]}})
     return send_file(path, as_attachment=True)
 
 
