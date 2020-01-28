@@ -51,9 +51,7 @@ def extract_body(xml, method):
                 data["cveplan"] = data["iccid"]
                 code = soap.update_plan(data)
             elif "com6_aprov_telcel" in child.tag:
-                code = soap.com_6(data)
-        else:
-            if "com6_aprov_telcel" in child.tag:
+                logger.info("Request COM_6 processing", extra={'props': {"raw": data, "app": config["name"], "label": config["name"]}})
                 code = soap.com_6(data)
     return code
 
