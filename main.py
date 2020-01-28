@@ -21,12 +21,9 @@ app = Flask(__name__)
 
 def extract_body(xml, method):
     soap = Soap()
-    '''
     namespaces = {
         'soapenv': 'http://www.w3.org/2003/05/soap-envelope'
     }
-    '''
-    namespaces = {}
     node = xml.findall("./soapenv:Body", namespaces)
     code = 0
     for child in node[0].getchildren():
