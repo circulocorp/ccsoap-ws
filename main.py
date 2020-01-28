@@ -90,9 +90,9 @@ def root():
 @app.route('/', methods=['GET'])
 def wsdl():
     path = "./definition.wsdl"
+    print("Download definition")
     try:
         print(request.args)
-        print("Download definition")
         arg = request.args['xsd']
         if arg == 1:
             path = "./definition.xsd"
