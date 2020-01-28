@@ -90,9 +90,9 @@ def root():
 @app.route('/', methods=['GET'])
 def wsdl():
     path = "./definition.wsdl"
-    print("Download definition")
+    logger.info("Download definition", extra={'props': {"app": config["name"], "label": config["name"]}})
     try:
-        print(request.args)
+        logger.info("Download definition", extra={'props': {"raw": request, "app": config["name"], "label": config["name"]}})
         arg = request.args['xsd']
         if arg == 1:
             path = "./definition.xsd"
